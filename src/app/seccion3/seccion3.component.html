@@ -1,0 +1,153 @@
+<div class="linea-separador"></div>
+<div class="seccion">
+  <!--  <form [formGroup]="form" (ngSubmit)="onSubmit()"> -->
+  <!-- <form [formGroup]="form" > -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div id="subseccionSceneConfiguration">
+    <h1>Scene configuration</h1>
+    <div class="botones_default">
+      <button (click)="setDefaultValues()">Default values</button>
+      <button>Clear</button>
+      <button>Help</button>
+    </div>
+
+    <br>
+    
+      <!-- <h2>Outputs</h2> -->
+      <!--  -->
+      <!-- <a id="display_unmodulated_code" [class]="isEnabledDisplay_unmodulated ? '' : 'disabled-link'"
+          >↓ Display unmodulated code:</a> -->
+      <div id="emission" class="div_secciones">
+        <h2>Emission</h2>
+        <label>Emitters:</label>
+
+        <div *ngIf="pos_emiService.pos_emision" class="contenedor-coordenadas">
+          <div *ngFor="let emmit of pos_emiService.pos_emision">
+            <div class="item_emmit">
+              <label>{{emmit.name}}:</label>
+              <span class="boton-lapiz">&#9998;</span>
+            </div>
+            <div id="coordenadas" class="coordenadas">
+              <div class="item_coordenada">
+                <label for="{{emmit.name}}x">X (cm):</label>
+                <input type="text" id="{{emmit.name}}x" value={{emmit.x}} (keyup.enter)="onEnterPress($event)"
+                  (keypress)="validateInputEnteros($event)" (keyup)="onEmmiterChange(emmit, 'x', $event)">
+                <!-- <input type="text" id="X" formControlName="X">  --><!-- edit13 -->
+              </div>
+
+              <div class="item_coordenada">
+                <label for="{{emmit.name}}y">Y (cm):</label>
+                <input type="text" id="{{emmit.name}}y" value={{emmit.y}} (keyup.enter)="onEnterPress($event)"
+                  (keypress)="validateInputEnteros($event)" (keyup)="onEmmiterChange(emmit, 'y', $event)">
+                <!-- <input type="text" id="Y" formControlName="Y">  --><!-- edit14 -->
+              </div>
+
+              <div class="item_coordenada">
+                <label for="{{emmit.name}}z">Z (cm):</label>
+                <input type="text" id="{{emmit.name}}z" value={{emmit.z}} (keyup.enter)="onEnterPress($event)"
+                  (keypress)="validateInputEnteros($event)" (keyup)="onEmmiterChange(emmit, 'z', $event)">
+                <!-- <input type="text" id="Z" formControlName="Z"> --> <!-- edit15 -->
+              </div>
+            </div>
+            
+          </div>
+          <!-- <button  icon="&#128472;"><span class="reload">&#128472;</span>Actualizar Gráfico</button>refresh.svg
+           -->
+          
+
+           
+        </div>
+        <br>
+        <label>Receiver position:</label>
+
+        <div *ngIf="pos_receiverService.pos_receiver" class="contenedor-coordenadas">
+          
+            <div class="item_emmit">
+              <label>{{pos_receiverService.pos_receiver.name}}:</label>
+              <span class="boton-lapiz">&#9998;</span>
+            </div>
+            <div id="receiver-coordenadas" class="coordenadas">
+              <div class="item_coordenada">
+                <label for="{{receiver?.name}}x">X (cm):</label>
+                <input type="text" id="{{receiver?.name}}x" value={{pos_receiverService.pos_receiver.x}} (keyup.enter)="onEnterPress($event)"
+                  (keypress)="validateInputEnteros($event)" (keyup)="onReceiverChange(receiver, 'x', $event)">
+                <!-- <input type="text" id="X" formControlName="X">  --><!-- edit13 -->
+              </div>
+
+              <div class="item_coordenada">
+                <label for="{{receiver?.name}}y">Y (cm):</label>
+                <input type="text" id="{{receiver?.name}}y" value={{pos_receiverService.pos_receiver.y}} (keyup.enter)="onEnterPress($event)"
+                  (keypress)="validateInputEnteros($event)" (keyup)="onReceiverChange(receiver, 'y', $event)">
+                <!-- <input type="text" id="Y" formControlName="Y">  --><!-- edit14 -->
+              </div>
+
+              <div class="item_coordenada">
+                <label for="{{receiver?.name}}z">Z (cm):</label>
+                <input type="text" id="{{receiver?.name}}z" value={{pos_receiverService.pos_receiver.z}} (keyup.enter)="onEnterPress($event)"
+                  (keypress)="validateInputEnteros($event)" (keyup)="onReceiverChange(receiver, 'z', $event)">
+                <!-- <input type="text" id="Z" formControlName="Z"> --> <!-- edit15 -->
+              </div>
+            
+            <br>
+          </div>
+          <!-- <button  icon="&#128472;"><span class="reload">&#128472;</span>Actualizar Gráfico</button>refresh.svg
+           -->
+         
+   
+        </div>
+
+
+
+        <button  id=botonRecargar type="button" class="btn btn-primary" (click)="reloadGrafico()">
+          <span class="pi pi-refresh" color="white"></span>
+          Actualizar Gráfico
+        </button>
+
+        <br>
+
+        
+        <div class="grafico" *ngIf="this.graficoJSON">
+          <plotly-plot id="plotly-div" [data]="graficoJSON.data" [layout]="graficoJSON.layout"></plotly-plot>
+          <br>
+        </div>
+        <div class="muestraSpinner" *ngIf="spinnerService.isLoading | async">
+          <div class="spinner">
+            <label>ESPERANDO...</label>
+            <div class="loader"></div>
+            <br>
+          </div>
+        </div>
+        <!--  -->
+
+        <br>
+        <label for="receiver_sampling_frequency">Receiver sampling frequency:</label>
+        <input type="text" id="receiver_sampling_frequency" formControlName="receiver_sampling_frequency" [readonly]="!isEditableFse" (keypress)="validateInputEnteros($event)">
+        <!-- edit11 -->
+        <label for="receiver_sampling_frequency">kHz</label>
+        <br>
+        <label for="downsampling">Downsampling:</label>
+        <input type="text" id="downsampling" formControlName="downsampling" (keypress)="validateInputEnteros($event)"
+          [readonly]="isEditableDownsamling"> <!-- edit12 -->
+        
+        <br>
+       
+
+        <br>
+      </div>
+      <br>
+
+    </div>
+      <div class="botones_principales">
+        <button>Cancel</button>
+  
+        <button type="submit" [disabled]="!form.valid" >Next</button>
+      </div>
+    </form>
+  
+</div>
+
+<div id="section4" *ngIf="this.showSeccion4">
+  <div #seccion4Ref>
+    <app-seccion4 id="seccion4"></app-seccion4>
+  </div>
+</div>

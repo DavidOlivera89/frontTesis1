@@ -1,0 +1,81 @@
+<div class="linea-separador"></div>
+<div class="seccion">
+  <!--  <form [formGroup]="form" (ngSubmit)="onSubmit()"> -->
+  <!-- <form [formGroup]="form" > -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div id="subseccionEffects">
+      <h1>Effects</h1>
+      <div class="botones_default">
+        <button (click)="setDefaultValues()">Default values</button>
+        <button>Clear</button>
+        <button>Help</button>
+      </div>
+
+      <br>
+
+      <div id="effect" class="div_secciones">
+        <h2>Add Effect</h2>
+        <div id="add-effect" class="div_secciones">
+          <br>
+          <input type="checkbox" id="white_gaussian_noise" formControlName="white_gaussian_noise"
+            value="white_gaussian_noise">
+          <!-- radiobutton3 -->
+          <label for="white_gaussian_noise"> White Gaussian noise</label>
+
+          <div *ngIf="form.get('white_gaussian_noise')?.value" id="white_gaussian_noise_secc" class="div_secciones">
+
+            <h3>White Gaussian noise</h3>
+            <label for="snr">SNR:</label>
+            <input type="text" id="snr" formControlName="snr" [readonly]="!isEditableFse" (keypress)="validateInputEnteros($event)">
+            <!-- edit11 -->
+            <label for="snr">dB</label>
+            <br>
+            <br>
+          </div>
+          <br>
+
+          <input type="checkbox" id="impulsive_noise" formControlName="impulsive_noise"
+            value="impulsive_noise">
+          <!-- radiobutton3 -->
+          <label for="impulsive_noise"> Impulsive noise</label>
+
+          <div *ngIf="form.get('impulsive_noise')?.value" id="impulsive_noise_secc" class="div_secciones">
+
+            <h3> Impulsive noise</h3>
+            <label for="snr">SNR:</label>
+            <input type="text" id="snr_impulsive_noise" formControlName="snr_impulsive_noise" [readonly]="!isEditableFse" (keypress)="validateInputEnteros($event)">
+            <!-- edit11 -->
+            <label for="snr">dB</label>
+            <br>
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" formControlName="duration" [readonly]="!isEditableFse" (keypress)="validateInputEnteros($event)">
+            <!-- edit11 -->
+            <label for="duration">% in respect with emission duration</label>
+            <br>
+            <label for="location">Location:</label>
+            <input type="text" id="location" formControlName="location" [readonly]="!isEditableFse" (keypress)="validateInputEnteros($event)">
+            <!-- edit11 -->
+            <label for="duration">% in respect with emission duration</label> <!-- todo CORREGIR -->
+            <br>
+            <br>
+          </div>
+          <br>
+
+          <!--  -->
+        </div>
+        <br>
+
+
+        <br>
+      </div>
+      <br>
+
+    </div>
+    <div class="botones_principales">
+      <button>Cancel</button>
+
+      <button type="submit" [disabled]="!form.valid">Next</button>
+    </div>
+  </form>
+
+</div>

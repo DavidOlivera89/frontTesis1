@@ -1,0 +1,70 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  a {
+    /*margin: 10px;
+    padding: 10px;
+    /*width: 80%;*/
+    border: none;
+    /*border-radius: 10px;*/
+    /*background-color: white;*/
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    
+    text-decoration: none;
+    color: #616161;
+    font-size: 18px;
+    margin-bottom: 35px;
+  }
+
+  path{
+    width: 12px;
+    height: 12px;
+    color: #616161;
+    background-color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    
+  }
+
+  svg{
+    background-color: transparent;
+    border-radius: 12px;
+    height: 20px;
+  }
+  svg:active{
+    font-weight: bold;
+    background-color: 4F4F4F;
+    
+  }
+
+  a:active{
+    font-weight: bold;
+    color: #4F4F4F;
+  }
+
+
+  .router-link-active {
+    font-weight: 500;
+    color: #4F4F4F;
+  }
+
+  .selector{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-wrap: nowrap;
+  }

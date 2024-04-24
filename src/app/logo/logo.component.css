@@ -1,0 +1,75 @@
+:host {
+    position: fixed;
+    top: 35px;
+    left: 11%;
+    z-index: 1000;
+    cursor: pointer; /* Me aseguro de que el logo siempre esté en la parte superior */
+  }
+
+  img{
+    width: 40px;
+    margin-top: 10px;
+    margin-left:5% ;
+    border-radius: 25%;
+    border: 1px solid #ccc;
+  }
+
+  a{
+    position: fixed;
+    margin-top: 15px;
+    right: 5%;
+    z-index: 1000;
+    cursor: pointer;
+    width: 70px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 15px;
+  }
+  
+  .nav{
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    height: 60px;
+    width: 100%;
+    background: black;
+
+  }
+
+
+  @media (max-width: 1490px) {
+    :host {
+      
+      left: 10%;
+      
+    }
+  }
+
+
+  @media (max-width: 1046px) {
+    :host {
+      
+      left: 9%;
+      
+    }
+  }
+
+
+  @media (max-width: 1046px) {
+    :host {
+      
+      left: 8%;
+      
+    }
+  }
+
+  
+  @media (max-width: 510px) {
+    :host {
+      
+      left: 7%;
+      
+    }
+  }

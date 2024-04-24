@@ -1,0 +1,19 @@
+<!-- <div class="form" [formGroup]="formGroup" (ngSubmit)="onSubmit()"> -->
+ <form class="form" [formGroup]="formGroup" (ngSubmit)="loginUser()">
+    <h1>Inicia Sesion</h1>
+    <p>Enter your details to continue</p>
+    <label >Enter your user</label>
+    <input type="text" placeholder="Enter your user" id ="username" formControlName="username">
+    <label >Enter your password</label>
+    <input type="password" placeholder="Enter your password" id ="password" formControlName="password">
+    <button type="submit" [disabled]="!formGroup.valid">Ingresar</button>
+    <div *ngIf="spinnerService.isLoading | async" class="spinner">
+      <label >ESPERANDO...</label>
+      <div class="loader"></div> 
+
+    </div>
+    <label class="error" *ngIf="errormsg" >{{mensaje}}</label>
+    <!-- <div class="logo">Logo 1</div>
+    <div class="logo">Logo 2</div> -->
+ </form> 
+<!-- </div> -->

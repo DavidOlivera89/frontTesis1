@@ -1,0 +1,40 @@
+.contenedor {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: max-content;
+    /*overflow-y: scroll;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #EEEEEE;
+  }
+
+.contenido{
+  /* margin-left: 25%; 
+  height: 100%;  */
+  /* overflow-y: scroll;  */
+  /* margin-left: 40px;
+  margin-right: 40px; */
+  width: 90%;
+}
+
+@media (max-width: 1000px) {
+
+  .contenido{
+    /* margin-left: 25%; 
+    height: 100%;  */
+    /* overflow-y: scroll;  */
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  app-sidebar{
+    display: none;
+  }
+
+
+}

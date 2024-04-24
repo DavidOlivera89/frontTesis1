@@ -1,0 +1,126 @@
+*{
+
+    font-family: 'Poppins', sans-serif;
+
+}
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: darkgray;
+
+    background-image: url('../../assets/prueba1.jpg'); /* Ruta de la imagen de fondo */
+    background-size: cover; /* Ajusta el tamaño de la imagen para cubrir toda la sección */
+    background-position: center; /* Alinea la imagen en el centro de la sección */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+  /* Otras propiedades de estilo, como color de texto, márgenes, etc. */
+  }
+  
+  /* Estilo del div del formulario */
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 40px black;
+    background-color: white;
+  }
+  
+  /* Estilo del título */
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo de los inputs */
+  input {
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid gray;
+    outline: none;
+  }
+  
+  /* Estilo del botón */
+  button {
+    width: 50%;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: transform .2s ;
+  }
+
+  button:active{
+    
+    background-color: rgb(31, 29, 29);
+    transform: scale(0.98); 
+    
+  }
+  
+  /* Estilo de los espacios para los logos */
+  .logo {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border: 1px solid black;
+    
+  }
+
+.error{
+  color : red;
+}
+
+  label{
+    margin-top: 10px;
+    /* align-self: flex-start; */
+    /* margin-left: 30px; */
+    font-size: 13px;
+    
+  }
+
+  .loader {
+    align-self: center;
+    width: 48px;
+    height: 8px;
+    -webkit-mask: linear-gradient(90deg,#000 70%,#0000 0) left/20% 100%;
+    background:
+    linear-gradient(#000 0 0) left -25% top 0 /20% 100% no-repeat
+    #ddd;
+    animation: l7 1s
+     infinite steps(6);
+  }
+
+  .spinner{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  @keyframes l7 {
+      100% {background-position: right -25% top 0}
+  }
+
+
+  @media (max-width: 480px) {
+    .form {
+      
+      width: 280px;
+      
+    }
+    
+  }
+
+    

@@ -1,0 +1,286 @@
+<div class="seccion">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1>Emission Configuration: Customized</h1>
+    <div class="botones_default">
+      <button (click)="setDefaultValues()">Default values</button>
+      <button (click)="openDialogClear()">Clear</button>
+      <!-- Abrir dialogo para confirmar borrar formulario -->
+        <dialog id="confirmationDialog"> <!-- -- TODO -->
+        <p>¿Estás seguro de querer borrar todo?</p>
+        <button (click)="clear()">Confirmar</button>
+        <!-- <button (click)="closeDialog()">Cancelar</button> -->
+      </dialog>
+
+      
+      <button>Help</button>
+    </div>
+    <div id="inputs" class="div_secciones">
+      <h2>Inputs</h2>
+      <div id="modulated_code" class="div_secciones">
+      <input type="radio" id="load_based_binary_code" formControlName="opciones_load" value="load_based_binary_code">
+      <!-- radiobutton3 -->
+      <label for="load_based_binary_code">Load based binary code</label>
+      <!-- <button [disabled]="!isLoadBasedBinaryCodeSelected" (click)="cargarCSV()">Cargar CSV</button> -->
+      <!-- pushbutton21 -->
+      <button [disabled]="!isLoadBasedBinaryCodeSelected" (click)="cargarCSV_MatrixCod()">Cargar CSV</button>
+      <!-- pushbutton21 -->
+      <!-- <input type="file" (change)="cargarArchivo($event)">   probando manera de subir archivo pasandolo a la api python-->
+      </div>
+      
+      <br>
+      
+      <div id="modulated_code" class="div_secciones">
+        <br>
+        <input type="radio" id="load_modulated_code" formControlName="opciones_load" value="load_modulated_code" >
+        <!-- radiobutton4 -->
+        <label for="load_modulated_code">Load modulated code </label>
+        <button [disabled]="!isLoadModulatedCodeSelected" (click)="cargarCSV_MatrixCodMod()">Cargar CSV</button>
+        <!-- pushbutton22 -->
+        <br>
+        <label for="sampling_frequency_modulation">Sampling frequency (fse):</label>
+        <input type="text" id="sampling_frequency" formControlName="sampling_frequency_modulation" [readonly]="!isEditableFse" (keypress)="validateInputEnteros($event)">
+        <!-- edit11 -->
+        <label for="sampling_frequency">kHz</label>
+        <br>
+        <label for="exclusion_window_around_main_peak">Exclusion window around the main peak:</label>
+        <input type="text" id="exclusion_window_around_main_peak" formControlName="exclusion_window_around_main_peak" (keypress)="validateInputEnteros($event)"
+          [readonly]="!isEditableExclusion"> <!-- edit12 -->
+        <label for="exclusion_window_around_main_peak">samples</label>
+        <br>
+      </div>
+      <br>
+      <label for="length_L">Length (L):</label>
+      <input type="text" id="length_L" formControlName="length_L" [readonly]="!isEditableLengthL"> <!-- text29 -->
+      <br>
+      <label for="num_sim_emitters_nemo">Number of simultaneous emitters (Nemo):</label>
+      <input type="text" id="num_sim_emitters_nemo" formControlName="num_sim_emmiters_nemo" [readonly]="!isEditableNumEmitters"> <!-- text30 -->
+
+
+      <br>
+      <div  id="BPSK_modulation" class="div_secciones">
+
+        <h2>BPSK modulation</h2>
+        <label for="carrier_type">Carrier type:</label>
+        <select id="carrier_type" formControlName="carrier_type" (change)="popmenu1_CarrierTypeChange($event)"
+          [disabled]="isEnabledCarryerType" > <!-- popmenu1 -->
+          <option *ngFor="let option of popmenu1_CarrierType" [value]="option">{{option}}</option>
+          <!-- <option value="opcion1">Opción 1</option>
+          <option value="opcion2">Opción 2</option>
+          <option value="opcion3">Opción 3</option> -->
+        </select>
+        <br>
+        <label for="carrierFreq">Carrier frequency (fc) kHz:</label>
+        <input type="text" id="carrierFreq" formControlName="carrierFreq" [readonly]="!isEditableCarrierFreq">
+        <!-- edit5 -->
+        <br>
+        <label for="sampling_frequency_modulation">Sampling frequency (fse) kHz:</label>
+        <input type="text" id="sampling_frequency_modulation" formControlName="sampling_frequency_modulation"
+          [readonly]="!isEditableSampling_freq_mod"> <!-- edit6 -->
+        <br>
+        <label for="carrier_cycles">Carrier cycles (Nc):</label>
+        <input type="text" id="carrier_cycles" formControlName="carrier_cycles" [readonly]="!isEditableCarrierCycles">
+        <!-- edit7 -->
+        <br>
+        <label for="oversampling_factor">Oversampling factor (Of):</label>
+        <input type="text" id="oversampling_factor" formControlName="oversampling_factor" [readonly]="!isEditableOf"> <!-- text16 -->
+        <br>
+        <label for="emission_time">Emission time (Te) ms:</label>
+        <input type="text" id="emission_time" formControlName="emission_time" [readonly]="!isEditableTe"> <!-- text25 -->
+        <br>
+      </div>
+      <br>
+      <div id="emission" class="div_secciones">
+        <h2>Emission</h2>
+        <label >Emitters:</label>
+        <!-- <select id="emitter" formControlName="emitter" (change)="popmenu3_Emitter($event)">  -->      <!-- popmenu3  -->
+          <!--TODO ESTABA VACIA-->
+        <!--   <option *ngFor="let option of popmenu3_Emmiter" [value]="option">{{option}}</option>
+
+        </select> -->
+       
+        
+        <div *ngIf="pos_emision.length>0" class="contenedor-coordenadas">
+          <div *ngFor="let emmit of pos_emision">
+            <div class="item_emmit">
+              <label>{{emmit.name}}:</label>
+              <span class="boton-lapiz">&#9998;</span>
+            </div>
+            <div id="coordenadas" class="coordenadas">
+              <div class="item_coordenada">
+                <label for="{{emmit.name}}x">X (cm):</label>
+                <input type="text"  id="{{emmit.name}}x" value={{emmit.x}} (keyup.enter)="onEnterPress($event)" (keypress)="validateInputEnteros($event)" (keyup)="onEmmiterChange(emmit, 'x', $event)">
+                <!-- <input type="text" id="X" formControlName="X">  --><!-- edit13 -->
+              </div>
+        
+              <div class="item_coordenada">
+                <label for="{{emmit.name}}y">Y (cm):</label>
+                <input type="text"  id="{{emmit.name}}y" value={{emmit.y}}  (keyup.enter)="onEnterPress($event)" (keypress)="validateInputEnteros($event)" (keyup)="onEmmiterChange(emmit, 'y', $event)">
+                <!-- <input type="text" id="Y" formControlName="Y">  --><!-- edit14 -->
+              </div>
+        
+              <div class="item_coordenada">
+                <label for="{{emmit.name}}z">Z (cm):</label>
+                <input type="text"  id="{{emmit.name}}z" value={{emmit.z}} (keyup.enter)="onEnterPress($event)" (keypress)="validateInputEnteros($event)" (keyup)="onEmmiterChange(emmit, 'z', $event)">
+                <!-- <input type="text" id="Z" formControlName="Z"> --> <!-- edit15 -->
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+
+        <div class="item">
+        <label for="num_Repetitions">Number of repetitions (Nrep):</label>
+        <input type="text" id="num_Repetitions" formControlName="num_Repetitions"> <!-- edit10 -->
+        </div>
+        <br>
+        <button (click)="cargarCSV_MatrixCodMod()">Guidance image</button> <!-- pushbutton14 -->
+        <br>
+        <input type="radio" id="cdma" formControlName="modulation" value="CDMA" [(ngModel)]="selectedModulation">
+        <!-- radiobutton5 -->
+        <label for="cdma">CDMA </label>
+        <input type="radio" id="tdma" formControlName="modulation" value="TDMA" [(ngModel)]="selectedModulation">
+        <!-- radiobutton6 -->
+        <label for="tdma">TDMA </label>
+        <input type="radio" id="hybrid" formControlName="modulation" value="Hybrid" [(ngModel)]="selectedModulation">
+        <!-- radiobutton7 -->
+        <label for="hybrid">Hybrid</label><br>
+        <br>
+        <label for="Tshift">Delay between emitters (Tshift) ms:</label>
+        <input type="text" id="Tshift" formControlName="Tshift"> <!-- edit16 -->
+        <br>
+        <label for="transductor_model">Transductor model:</label>
+        <select id="transductor_model" formControlName="transductor_model"
+          (change)="popmenu2_TransductorModelChange($event)"> <!-- popmenu2 -->
+          <option *ngFor="let option of popmenu2_TransductorModel" [value]="option">{{option}}</option>
+          <!-- <option value="opcion1">Opción 1</option>
+          <option value="opcion2">Opción 2</option>
+          <option value="opcion3">Opción 3</option> -->
+        </select>
+        <br>
+        <button (click)="cargarCSV_MatrixCod()">Open file</button> <!-- pushbutton20 -->
+
+      </div>
+      <br>
+    </div>
+    <br>
+    <div id="outputs" class="div_secciones">
+      <h2>Outputs</h2>
+    <!--  -->
+      <a id="display_unmodulated_code" [class]="isEnabledDisplay_unmodulated ? '' : 'disabled-link'"
+        (click)="display_unmod_code()">↓ Display unmodulated code:</a> <!-- pushbutton15 -->
+      <br>
+      <div class="grafico" *ngIf="this.graficoJSON">
+        <plotly-plot id="plotly-div" [data]="graficoJSON.data" [layout]="graficoJSON.layout"></plotly-plot>
+        <br>
+      </div>
+      <div class="muestraSpinner" *ngIf="spinnerService2.isLoading  | async">
+        <div *ngIf="output === 'display_unmodulated_code' " class="spinner">
+          <label>ESPERANDO...</label>
+          <div class="loader"></div>
+          <br>
+        </div>
+      </div>
+    <!--  -->
+      <a id="save_modulated_code_file" [class]="isEnabledSave_modulated ? '' : 'disabled-link'"
+        (click)="save_modulated_code_file()">↓ Save modulated code file:</a> <!-- pushbutton10 -->
+      <br>
+    <!--  -->
+      <a id="display_carrier_signal:" [class]="isEnabledSave_display_carrier_signal ? '' : 'disabled-link'"
+        (click)="display_carrier_signal()">↓ Display carrier signal:</a> <!-- pushbutton7 -->
+      <br>
+      <div class="grafico" *ngIf="this.graficoJSON3">
+        <plotly-plot id="plotly-div" [data]="graficoJSON3.data" [layout]="graficoJSON3.layout"></plotly-plot>
+        <br>
+      </div>
+      <div class="muestraSpinner" *ngIf="spinnerService2.isLoading  | async">
+        <div *ngIf="output === 'display_carrier_signal' " class="spinner">
+          <label>ESPERANDO...</label>
+          <div class="loader"></div>
+          <br>
+        </div>
+      </div>
+    <!--  -->
+      <a id="display_modulated_signal:" [class]="isEnabledDisplay_modulated ? '' : 'disabled-link'"
+       (click)="display_modulated_signal()">↓ Display modulated signal:</a>    <!-- pushbutton11 -->
+       <br>
+      <div class="grafico_modulada" *ngIf="this.graficoJSON5">
+         <plotly-plot id="plotly-div" [data]="graficoJSON5.data" [layout]="graficoJSON5.layout"></plotly-plot>
+         <br>
+       </div>
+       <div class="muestraSpinner" *ngIf="spinnerService2.isLoading  | async">
+         <div *ngIf="output === 'display_modulated_signal' " class="spinner">
+           <label>ESPERANDO...</label>
+           <div class="loader"></div>
+           <br>
+         </div>
+      </div>
+    <!--  -->
+      <a id="display_signal_with_transducer_effect:" [class]="isEnabledDisplay_modulated ? '' : 'disabled-link'"
+      (click)="display_signal_transducer_effect()">↓ Display signal with transducer effect:</a>  <!-- pushbutton18 -->
+      <br>
+      <div class="grafico_modulada" *ngIf="this.graficoJSON6">
+        <plotly-plot id="plotly-div" [data]="graficoJSON6.data" [layout]="graficoJSON6.layout"></plotly-plot>
+        <br>
+      </div>
+      <div class="muestraSpinner" *ngIf="spinnerService2.isLoading | async">
+        <div *ngIf="output === 'display_modulated_signal' " class="spinner">
+          <label>ESPERANDO...</label>
+          <div class="loader"></div>
+          <br>
+        </div>
+     </div>
+    <!--  -->
+      <a id="see_transducer_model:" [class]="isEnabledDisplay_modulated ? '' : 'disabled-link'"
+      (click)="see_transducer_model()">↓ See transducer model:</a><!-- pushbutton13 -->
+       <!-- TODO cuando inicia bloquear-->
+       <div class="grafico" *ngIf="this.graficoJSON7">
+        <plotly-plot id="plotly-div" [data]="graficoJSON7.data" [layout]="graficoJSON7.layout"></plotly-plot>
+        <br>
+      </div>
+      <div class="muestraSpinner" *ngIf="spinnerService2.isLoading | async">
+        <div *ngIf="output === 'display_modulated_signal' " class="spinner">
+          <label>ESPERANDO...</label>
+          <div class="loader"></div>
+          <br>
+        </div>
+     </div>
+      <br>
+    <!--  -->
+      <a id="display_signals_to_emit:" (click)="display_points_3d()">↓ Display signals to emit:</a> <!-- pushbutton19 -->
+      <br>
+      <br>
+      <div class="grafico" *ngIf="this.graficoJSON4" willReadFrequently ="true">
+        <plotly-plot id="plotly-div" [data]="graficoJSON4.data" [layout]="graficoJSON4.layout" willReadFrequently ="true"></plotly-plot>
+        <br>
+      </div>
+      <div class="muestraSpinner" *ngIf="spinnerService3.isLoading | async">
+        <div *ngIf="output === 'display_signals_to_emit'" class="spinner">
+          <label>ESPERANDO...</label>
+          <div class="loader"></div>
+          <br>
+        </div>
+      </div>
+    <!--  -->
+      <br>
+    </div>
+    <br>
+
+    <!-- <input type="button" value="Clear">
+      <input type="button" value="Help">
+      <input type="button" value="Generate modified code">
+      <input type="button" value="Back">
+      <input type="submit" value="Next"> -->
+    
+    <div class="botones_principales">
+      <button>Cancel</button>
+
+      <button type="submit" [disabled]="!form.valid" >Next</button>
+    </div>
+  </form>
+</div>
+
+<div id="section3" *ngIf="this.showSeccion3">
+  <div #seccion3Ref>
+    <app-seccion3 id="seccion3"></app-seccion3>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~primeicons/primeicons.css';
+
+body{
+  margin: 0px;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./assets/fonts/Poppins-Regular.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+  }
+

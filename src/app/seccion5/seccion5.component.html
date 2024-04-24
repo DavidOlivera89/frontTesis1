@@ -1,0 +1,18 @@
+ <div class="seccion">
+    <h1>Sección 5</h1>
+    <!-- <form #form5="ngForm" (ngSubmit)="onSubmit(form5)">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" ngModel required>
+      <label for="apellido">Apellido</label>
+      <input type="text" id="apellido" name="apellido" ngModel required>
+      <button type="submit" [disabled]="!form5.valid">Siguiente</button>
+    </form> -->
+    <h1>Gráfico de Plotly</h1>
+    <!-- Usar un componente de Plotly para mostrar el gráfico -->
+    <div *ngIf="this.graficoJSON">
+    <plotly-plot [data]="graficoJSON.data" [layout]="graficoJSON.layout"></plotly-plot>
+    </div>
+  </div> 
+
+  <!-- Código HTML del componente de Angular -->
+
