@@ -9,7 +9,7 @@ import { tap }  from 'rxjs/operators';
 export class AuthService {
   isLoggedIn = false;
 
-  private _loginUrl = "http://127.0.0.1:5000/login";
+  private _loginUrl = "https://apitesis-production.up.railway.app//login";
   //private _loginUrl = "https://apitesis-production.up.railway.app/login";
 
   constructor(private http: HttpClient, private router: Router) { }

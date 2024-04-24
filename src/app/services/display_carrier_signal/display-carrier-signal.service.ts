@@ -13,6 +13,6 @@ export class DisplayCarrierSignalService {
   display_carrier_signal( carrier_type: any, carrierFreq: any, oversampling_factor: any, carrier_cycles: any ) {
     const data = { carrier_type, carrierFreq, oversampling_factor, carrier_cycles};
     console.log("estamos en el servicio")
-    return this.http.post("http://127.0.0.1:5000/display_carrier_signal", { carrier_type, carrierFreq, oversampling_factor, carrier_cycles});
+    return this.http.post("https://apitesis-production.up.railway.app/display_carrier_signal", { carrier_type, carrierFreq, oversampling_factor, carrier_cycles});
   }
 }

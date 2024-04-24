@@ -14,6 +14,6 @@ export class points_3d {
   points_3d( emmiters:any) {
     //const data = { objeto_global, matrix_cod};
     console.log("estamos en el servicio points_3d")
-    return this.http.post("http://127.0.0.1:5000/puntos_emmiters_3d", {emmiters});
+    return this.http.post("https://apitesis-production.up.railway.app/puntos_emmiters_3d", {emmiters});
   }
 }
